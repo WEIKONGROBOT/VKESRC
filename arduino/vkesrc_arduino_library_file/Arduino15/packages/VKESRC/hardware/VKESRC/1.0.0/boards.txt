@@ -35,8 +35,8 @@ VKESRC.build.inc5=hw/usb_cdc
 VKESRC.build.inc6=lib/STM32F7xx_HAL_Driver/Inc/
 VKESRC.build.inc7=
 
-#VKESRC.upload.tool=opencr_ld
-#VKESRC.menu.upload_method.upload.tool=opencr_ld
+VKESRC.upload.tool=opencr_ld
+VKESRC.menu.upload_method.upload.tool=opencr_ld
 
 VKESRC.menu.upload_method.UploadMethod=VKESRC Bootloader
 VKESRC.menu.upload_method.UploadMethod.upload.protocol=opencr_ld
