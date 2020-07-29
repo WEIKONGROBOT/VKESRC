@@ -19,7 +19,7 @@
 #ifndef TRANSBOT_H_
 #define TRANSBOT_H_
 
-#define NAME                             "Burger"
+#define NAME                             "TransBot"
 
 #define WHEEL_RADIUS                     0.033           // meter
 #define WHEEL_SEPARATION                 0.221           // meter (TRANSBOT : 0.221)   

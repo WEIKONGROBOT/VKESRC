@@ -1,2 +1,2 @@
 # VKESRC
-Robot Control Module for ROS
+Robot Control Module for ROS design by vkrobot
