@@ -1,0 +1,43 @@
+# VKESRC Boards
+#
+menu.device_variant=Variant
+menu.bootloader_version=Bootloader version
+menu.upload_method=Upload method
+
+VKESRC.bootloader.tool = dfu_util
+VKESRC.bootloader.file = opencr_boot.bin
+
+VKESRC.name=VKESRC Board
+VKESRC.upload.maximum_size=786432
+
+VKESRC.upload.file_type=bin
+VKESRC.upload.ram.maximum_size=256788
+VKESRC.upload.flash.maximum_size=786432
+VKESRC.upload.params.quiet=no
+
+VKESRC.build.mcu=cortex-m7
+VKESRC.build.f_cpu=216000000L
+VKESRC.build.board=VKESRC
+VKESRC.build.core=arduino
+VKESRC.build.common_flags=-mthumb  -DSTM32F746xx -D__OPENCR__
+
+VKESRC.build.ldscript=bsp/vkesrc/ldscript/opencr_flash.ld
+VKESRC.build.variant=VKESRC
+VKESRC.build.variant_system_lib=lib_f746.a
+VKESRC.build.extra_flags=
+
+
+VKESRC.build.inc1=bsp/vkesrc
+VKESRC.build.inc2=bsp/vkesrc/include
+VKESRC.build.inc3=hw
+VKESRC.build.inc4=hw/driver
+VKESRC.build.inc5=hw/usb_cdc
+VKESRC.build.inc6=lib/STM32F7xx_HAL_Driver/Inc/
+VKESRC.build.inc7=
+
+#VKESRC.upload.tool=opencr_ld
+#VKESRC.menu.upload_method.upload.tool=opencr_ld
+
+VKESRC.menu.upload_method.UploadMethod=VKESRC Bootloader
+VKESRC.menu.upload_method.UploadMethod.upload.protocol=opencr_ld
+VKESRC.menu.upload_method.UploadMethod.upload.tool=opencr_ld

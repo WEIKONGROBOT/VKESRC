@@ -1,0 +1,123 @@
+{
+  "packages": [
+    {
+      "name": "VKESRC",
+      "maintainer": "VKROBOT",
+      "websiteURL": "https://github.com/VKROBOT-GIT/VKESRC",
+      "email": "jiapeng.feng@vkrobot.com",
+      "help": {
+        "online": "https://github.com/VKROBOT-GIT/VKESRC"
+      },
+      "platforms": [
+       
+        {
+          "name": "VKESRC",
+          "architecture": "VKESRC",
+          "version": "1.0.0",
+          "category": "Arduino",
+          "help": {
+            "online": "https://github.com/VKROBOT-GIT/VKESRC"
+          },
+          "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/1.0.0/vkesrc.tar.bz2",
+          "archiveFileName": "vkesrc.tar.bz2",
+          "checksum": "SHA-256:CBD22D1A0D7A89FD5352EEA4CEF5B98372EDF248C52DF7EB5A69D0034998BC5D",
+          "size": "2593317",
+          "help": {
+                    "online": "http://emanual.vkrobot.com/docs/en/parts/controller/vkesrc10/"
+          },
+          "boards": [
+            {"name": "VKESRC"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "VKESRC",
+              "name": "vkesrc_gcc",
+              "version": "5.4.0-2016q2"
+            },
+            {
+              "packager": "VKESRC",
+              "name": "vkesrc_tools",
+              "version": "1.0.0"
+            }
+          ]
+        }
+        
+        
+        
+        
+        
+        
+      ],
+      "tools":[
+        {
+          "name": "opencr_gcc",
+          "version": "5.4.0-2016q2",
+          "systems": [
+            {
+              "host": "i686-linux-gnu",
+              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update/+download/gcc-arm-none-eabi-5_4-2016q2-20160622-linux.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_4-2016q2-20160622-linux.tar.bz2",
+              "checksum": "SHA-256:9910b6b5df12efe564dbb3856bf1599d4c16178a6f28bd8a23c9e5c3edc219e4",
+              "size": "92600244"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update/+download/gcc-arm-none-eabi-5_4-2016q2-20160622-linux.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_4-2016q2-20160622-linux.tar.bz2",
+              "checksum": "SHA-256:9910b6b5df12efe564dbb3856bf1599d4c16178a6f28bd8a23c9e5c3edc219e4",
+              "size": "92600244"
+            },
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/arduino/gcc-arm-none-eabi-5_4-2016q2-20160622-win32.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_4-2016q2-20160622-win32.tar.bz2",
+              "checksum": "SHA-256:19d6b216aba935b713274966230505d7aedc5d8e38970cbe02c1266209645161",
+              "size": "103246869"
+            },
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update/+download/gcc-arm-none-eabi-5_4-2016q2-20160622-mac.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_4-2016q2-20160622-mac.tar.bz2",
+              "checksum": "SHA-256:e175a0eb7ee312013d9078a5031a14bf14dff82c7e697549f04b22e6084264c8",
+              "size": "96963810"
+            }
+          ]
+        },
+        {
+          "name": "opencr_tools",
+          "version": "1.0.0",
+          "systems": [
+            {
+              "host": "i686-linux-gnu",
+              "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/1.0.0/opencr_tools_1.0.0.tar.bz2",
+              "archiveFileName": "opencr_tools_1.0.0.tar.bz2",
+              "checksum": "SHA-256:86b547dc98e07c90f17e0a6c45b207153ee8b4344da841f26956f495295a3a6a",
+              "size": "513792"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/1.0.0/opencr_tools_1.0.0.tar.bz2",
+              "archiveFileName": "opencr_tools_1.0.0.tar.bz2",
+              "checksum": "SHA-256:86b547dc98e07c90f17e0a6c45b207153ee8b4344da841f26956f495295a3a6a",
+              "size": "513792"
+            },
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/1.0.0/opencr_tools_1.0.0.tar.bz2",
+              "archiveFileName": "opencr_tools_1.0.0.tar.bz2",
+              "checksum": "SHA-256:86b547dc98e07c90f17e0a6c45b207153ee8b4344da841f26956f495295a3a6a",
+              "size": "513792"
+            },
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/VKROBOT-GIT/VKESRC/releases/download/1.0.0/opencr_tools_1.0.0.tar.bz2",
+              "archiveFileName": "opencr_tools_1.0.0.tar.bz2",
+              "checksum": "SHA-256:86b547dc98e07c90f17e0a6c45b207153ee8b4344da841f26956f495295a3a6a",
+              "size": "513792"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
