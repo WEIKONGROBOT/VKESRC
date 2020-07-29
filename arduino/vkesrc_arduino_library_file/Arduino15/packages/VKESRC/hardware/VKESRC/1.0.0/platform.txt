@@ -102,24 +102,24 @@ recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
 
 # Uploader tools
 # -------------------
-tools.opencr_ld.cmd=opencr_ld
-tools.opencr_ld.cmd.windows=opencr_ld.exe
-#tools.opencr_ld.path={runtime.hardware.path}/tools/win
-#tools.opencr_ld.path.macosx={runtime.hardware.path}/tools/macosx
-#tools.opencr_ld.path.linux={runtime.hardware.path}/tools/linux
-tools.opencr_ld.path={runtime.tools.opencr_tools.path}/win
-tools.opencr_ld.path.macosx={runtime.tools.opencr_tools.path}/macosx
-tools.opencr_ld.path.linux={runtime.tools.opencr_tools.path}/linux
+tools.vkesrc_ld.cmd=vkesrc_ld
+tools.vkesrc_ld.cmd.windows=vkesrc_ld.exe
+tools.vkesrc_ld.path={runtime.hardware.path}/tools/vkesrc_tools/win
+tools.vkesrc_ld.path.macosx={runtime.hardware.path}/tools/vkesrc_tools/macosx
+tools.vkesrc_ld.path.linux={runtime.hardware.path}/tools/vkesrc_tools/linux
+#tools.vkesrc_ld.path={runtime.tools.vkesrc_tools.path}/win
+#tools.vkesrc_ld.path.macosx={runtime.tools.vkesrc_tools.path}/macosx
+#tools.vkesrc_ld.path.linux={runtime.tools.vkesrc_tools.path}/linux
 
-tools.opencr_ld.upload.params.verbose=-d
-tools.opencr_ld.upload.params.quiet=n
-tools.opencr_ld.upload.pattern="{path}/{cmd}" "{serial.port}" "115200" "{build.path}/{build.project_name}.bin" "1"
+tools.vkesrc_ld.upload.params.verbose=-d
+tools.vkesrc_ld.upload.params.quiet=n
+tools.vkesrc_ld.upload.pattern="{path}/{cmd}" "{serial.port}" "115200" "{build.path}/{build.project_name}.bin" "1"
 
 tools.dfu_util.cmd=dfu-util
 tools.dfu_util.cmd.windows=dfu-util.exe
-tools.dfu_util.path={runtime.tools.opencr_tools.path}/win/dfu-util
-tools.dfu_util.path.macosx={runtime.tools.opencr_tools.path}/macosx/dfu-util
-tools.dfu_util.path.linux={runtime.tools.opencr_tools.path}/linux/dfu-util
+tools.dfu_util.path={runtime.tools.vkesrc_tools.path}/win/dfu-util
+tools.dfu_util.path.macosx={runtime.tools.vkesrc_tools.path}/macosx/dfu-util
+tools.dfu_util.path.linux={runtime.tools.vkesrc_tools.path}/linux/dfu-util
 
 tools.dfu_util.erase.params.verbose=-v
 tools.dfu_util.erase.params.quiet=-q -q
