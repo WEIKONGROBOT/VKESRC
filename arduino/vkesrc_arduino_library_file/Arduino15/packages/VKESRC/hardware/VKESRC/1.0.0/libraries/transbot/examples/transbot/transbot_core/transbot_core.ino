@@ -49,12 +49,11 @@ void setup()
   motor_driver.init(NAME);
 
   // Setting for IMU
-  sensors.init();
-
+  sensors.init(); 
   // Init diagnosis
   diagnosis.init();
 
-  // Setting for VKROBOT RC100 remote controller and cmd_vel
+  // Setting for ROBOTIS RC100 remote controller and cmd_vel
   controllers.init(MAX_LINEAR_VELOCITY, MAX_ANGULAR_VELOCITY);
 
   // Setting for SLAM and navigation (odometry, joint states, TF)
@@ -108,11 +107,12 @@ void loop()
 
   if ((t-tTime[3]) >= (1000 / IMU_PUBLISH_FREQUENCY))
   {
+
     publishImuMsg();
     publishMagMsg();
     tTime[3] = t;
   }
-
+   
   if ((t-tTime[4]) >= (1000 / VERSION_INFORMATION_PUBLISH_FREQUENCY))
   {
     publishVersionInfoMsg();
@@ -242,6 +242,7 @@ void publishImuMsg(void)
 /*******************************************************************************
 * Publish msgs (Magnetic data)
 *******************************************************************************/
+
 void publishMagMsg(void)
 {
   mag_msg = sensors.getMag();
@@ -337,8 +338,9 @@ void publishDriveInformation(void)
   // odometry tf
   updateTF(odom_tf);
   odom_tf.header.stamp = stamp_now;
+  
   tf_broadcaster.sendTransform(odom_tf);
-
+ 
   // joint states
   updateJointStates();
   joint_states.header.stamp = stamp_now;
@@ -363,7 +365,6 @@ void updateTFPrefix(bool isConnected)
       {
         sprintf(odom_header_frame_id, "odom");
         sprintf(odom_child_frame_id, "base_footprint");  
-
         sprintf(imu_frame_id, "imu_link");
         sprintf(mag_frame_id, "mag_link");
         sprintf(joint_state_header_frame_id, "base_link");
@@ -372,14 +373,12 @@ void updateTFPrefix(bool isConnected)
       {
         strcpy(odom_header_frame_id, get_tf_prefix);
         strcpy(odom_child_frame_id, get_tf_prefix);
-
         strcpy(imu_frame_id, get_tf_prefix);
         strcpy(mag_frame_id, get_tf_prefix);
         strcpy(joint_state_header_frame_id, get_tf_prefix);
 
         strcat(odom_header_frame_id, "/odom");
         strcat(odom_child_frame_id, "/base_footprint");
-
         strcat(imu_frame_id, "/imu_link");
         strcat(mag_frame_id, "/mag_link");
         strcat(joint_state_header_frame_id, "/base_link");
@@ -390,10 +389,9 @@ void updateTFPrefix(bool isConnected)
 
       sprintf(log_msg, "Setup TF on IMU [%s]", imu_frame_id);
       nh.loginfo(log_msg); 
-
       sprintf(log_msg, "Setup TF on MagneticField [%s]", mag_frame_id);
       nh.loginfo(log_msg); 
-
+    
       sprintf(log_msg, "Setup TF on JointState [%s]", joint_state_header_frame_id);
       nh.loginfo(log_msg); 
 
@@ -419,6 +417,13 @@ void updateOdometry(void)
   odom.pose.pose.position.z = 0;
   odom.pose.pose.orientation = tf::createQuaternionFromYaw(odom_pose[2]);
 
+  odom.pose.covariance[0] = 0.0001;  // x
+  odom.pose.covariance[7] = 0.0001;  // y
+  odom.pose.covariance[14] = 0.00001; // z
+  odom.pose.covariance[21] = 1000000000000.0; // rot x
+  odom.pose.covariance[28] = 1000000000000.0; // rot y
+  odom.pose.covariance[35] = 0.1; // rot z
+ 
   odom.twist.twist.linear.x  = odom_vel[0];
   odom.twist.twist.angular.z = odom_vel[2];
 }
@@ -493,6 +498,7 @@ void updateMotorInfo(int32_t left_tick, int32_t right_tick)
   last_tick[RIGHT]      = current_tick;
   last_rad[RIGHT]       += TICK2RAD * (double)last_diff_tick[RIGHT];
 }
+
 
 /*******************************************************************************
 * Calculate the odometry
@@ -572,7 +578,9 @@ void driveTest(uint8_t buttons)
     move[LINEAR] = true;
     saved_tick[RIGHT] = current_tick[RIGHT];
 
-    diff_encoder = TEST_DISTANCE / (0.207 / 4096); // (Circumference of Wheel) / (The number of tick per revolution)
+//    diff_encoder = TEST_DISTANCE / (0.207 / 4096); // (Circumference of Wheel) / (The number of tick per revolution)
+    diff_encoder = TEST_DISTANCE * 4096 / (0.207); // (Circumference of Wheel) / (The number of tick per revolution)
+
     tTime[6] = millis();
   }
   else if (buttons & (1<<1))
@@ -580,7 +588,9 @@ void driveTest(uint8_t buttons)
     move[ANGULAR] = true;
     saved_tick[RIGHT] = current_tick[RIGHT];
 
-    diff_encoder = (TEST_RADIAN * TURNING_RADIUS) / (0.207 / 4096);
+//    diff_encoder = (TEST_RADIAN * TURNING_RADIUS) / (0.207 / 4096);
+    diff_encoder = (TEST_RADIAN * TURNING_RADIUS) * 4096 / (0.207);    
+	
     tTime[6] = millis();
   }
 
