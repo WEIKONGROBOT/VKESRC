@@ -16,22 +16,23 @@
 
 /* Authors: jiapeng.feng */
 
-#include "TRANSBOT_OMNI_motor_driver.h"
+#include "transbot_omni_motor_driver.h"
 
-TransbotMotorDriver::TransbotMotorDriver()
+Turtlebot3MotorDriver::Turtlebot3MotorDriver()
 : baudrate_(BAUDRATE),
   protocol_version_(PROTOCOL_VERSION),
-  left_rear_wheel_id_(DXL_LEFT_REAR_ID), right_rear_wheel_id_(DXL_RIGHT_REAR_ID),
-  left_front_wheel_id_(DXL_LEFT_FRONT_ID), right_front_wheel_id_(DXL_RIGHT_FRONT_ID)
+  first_wheel_id_(DXL_FIRST_ID),
+  second_wheel_id_(DXL_SECOND_ID),
+  third_wheel_id_(DXL_THIRD_ID)
 {
 }
 
-TransbotMotorDriver::~TransbotMotorDriver()
+Turtlebot3MotorDriver::~Turtlebot3MotorDriver()
 {
   closeDynamixel();
 }
 
-bool TransbotMotorDriver::init(void)
+bool Turtlebot3MotorDriver::init(void)
 {
   portHandler_   = dynamixel::PortHandler::getPortHandler(DEVICENAME);
   packetHandler_ = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
@@ -61,25 +62,16 @@ bool TransbotMotorDriver::init(void)
   }
 
   // Enable Dynamixel Torque
-  setTorque(left_rear_wheel_id_, true);
-  setTorque(right_rear_wheel_id_, true);
-  setTorque(left_front_wheel_id_, true);
-  setTorque(right_front_wheel_id_, true);
-  
-//change by jiapengfeng for test 20200824
-  // Enable Dynamixel Torque
-  setOperationMode(left_rear_wheel_id_, VALUE_OM_SPEED_MODE);
-  setOperationMode(right_rear_wheel_id_, VALUE_OM_SPEED_MODE);
-  setOperationMode(left_front_wheel_id_, VALUE_OM_SPEED_MODE);
-  setOperationMode(right_front_wheel_id_, VALUE_OM_SPEED_MODE);
-//change by jiapengfeng for test 20200824
+  setTorque(first_wheel_id_, true);
+  setTorque(second_wheel_id_, true);
+  setTorque(third_wheel_id_, true);
 
   groupSyncWriteVelocity_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_VELOCITY, LEN_X_GOAL_VELOCITY);
 
   return true;
 }
 
-bool TransbotMotorDriver::setTorque(uint8_t id, bool onoff)
+bool Turtlebot3MotorDriver::setTorque(uint8_t id, bool onoff)
 {
   uint8_t dxl_error = 0;
   int dxl_comm_result = COMM_TX_FAIL;
@@ -95,55 +87,31 @@ bool TransbotMotorDriver::setTorque(uint8_t id, bool onoff)
   }
 }
 
-//change by jiapengfeng for test 20200824
-
-bool TransbotMotorDriver::setOperationMode(uint8_t id, uint8_t mode)
-{
-  uint8_t dxl_error = 0;
-  int dxl_comm_result = COMM_TX_FAIL;
-
-  dxl_comm_result = packetHandler_->write1ByteTxRx(portHandler_, id, ADDR_X_OPERATION_MODE, mode, &dxl_error);
-  if(dxl_comm_result != COMM_SUCCESS)
-  {
-    packetHandler_->getTxRxResult(dxl_comm_result);
-  }
-  else if(dxl_error != 0)
-  {
-    packetHandler_->getRxPacketError(dxl_error);
-  }
-}
-//change by jiapengfeng for test 20200824
-
-void TransbotMotorDriver::closeDynamixel(void)
+void Turtlebot3MotorDriver::closeDynamixel(void)
 {
   // Disable Dynamixel Torque
-  setTorque(left_rear_wheel_id_, false);
-  setTorque(right_rear_wheel_id_, false);
-  setTorque(left_front_wheel_id_, false);
-  setTorque(right_front_wheel_id_, false);
+  setTorque(first_wheel_id_, false);
+  setTorque(second_wheel_id_, false);
+  setTorque(third_wheel_id_, false);
 
   // Close port
   portHandler_->closePort();
 }
 
-bool TransbotMotorDriver::controlMotor(uint8_t* left_rear_wheel_value, uint8_t* right_rear_wheel_value, uint8_t* left_front_wheel_value, uint8_t* right_front_wheel_value)
+bool Turtlebot3MotorDriver::controlMotor(int64_t first_wheel_value, int64_t second_wheel_value, int64_t third_wheel_value)
 {
   bool dxl_addparam_result_;
   int8_t dxl_comm_result_;
-  
-  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(left_rear_wheel_id_, left_rear_wheel_value);
+
+  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(first_wheel_id_, (uint8_t*)&first_wheel_value);
   if (dxl_addparam_result_ != true)
     return false;
 
-  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(right_rear_wheel_id_, right_rear_wheel_value);
+  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(second_wheel_id_, (uint8_t*)&second_wheel_value);
   if (dxl_addparam_result_ != true)
     return false;
 
-  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(left_front_wheel_id_, left_front_wheel_value);
-  if (dxl_addparam_result_ != true)
-    return false;
-
-  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(right_front_wheel_id_,right_front_wheel_value);
+  dxl_addparam_result_ = groupSyncWriteVelocity_->addParam(third_wheel_id_, (uint8_t*)&third_wheel_value);
   if (dxl_addparam_result_ != true)
     return false;
 

@@ -19,7 +19,7 @@ compiler.warning_flags.all=-Wall -Wextra -DDEBUG_LEVEL=DEBUG_ALL
 
 # compiler variables
 # ----------------------
-compiler.path={runtime.tools.vkesrc_gcc.path}/bin/
+compiler.path={runtime.hardware.path}/tools/vkesrc_gcc/bin/
 compiler.c.cmd=arm-none-eabi-gcc
 compiler.c.flags=-c -g -O2 -std=gnu11 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 {compiler.warning_flags} -MMD -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -DBOARD_{build.variant}
 compiler.c.elf.cmd=arm-none-eabi-g++
@@ -117,9 +117,9 @@ tools.vkesrc_ld.upload.pattern="{path}/{cmd}" "{serial.port}" "115200" "{build.p
 
 tools.dfu_util.cmd=dfu-util
 tools.dfu_util.cmd.windows=dfu-util.exe
-tools.dfu_util.path={runtime.tools.vkesrc_tools.path}/win/dfu-util
-tools.dfu_util.path.macosx={runtime.tools.vkesrc_tools.path}/macosx/dfu-util
-tools.dfu_util.path.linux={runtime.tools.vkesrc_tools.path}/linux/dfu-util
+tools.dfu_util.path={runtime.hardware.path}/tools/vkesrc_tools/win/dfu-util
+tools.dfu_util.path.macosx={runtime.hardware.path}/tools/vkesrc_tools/macosx/dfu-util
+tools.dfu_util.path.linux={runtime.hardware.path}/tools/vkesrc_tools/linux/dfu-util
 
 tools.dfu_util.erase.params.verbose=-v
 tools.dfu_util.erase.params.quiet=-q -q
