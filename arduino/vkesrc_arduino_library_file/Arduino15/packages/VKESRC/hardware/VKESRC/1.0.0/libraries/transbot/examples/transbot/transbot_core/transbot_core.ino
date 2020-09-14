@@ -177,7 +177,7 @@ void commandVelocityCallback(const geometry_msgs::Twist& cmd_vel_msg)
 /*******************************************************************************
 * Callback function for sound msg
 *******************************************************************************/
-void soundCallback(const turtlebot3_msgs::Sound& sound_msg)
+void soundCallback(const transbot_msgs::Sound& sound_msg)
 {
   sensors.makeSound(sound_msg.value);
 }
@@ -561,7 +561,7 @@ bool calcOdometry(double diff_time)
 }
 
 /*******************************************************************************
-* Turtlebot3 test drive using push buttons
+* Transbot test drive using push buttons
 *******************************************************************************/
 void driveTest(uint8_t buttons)
 {

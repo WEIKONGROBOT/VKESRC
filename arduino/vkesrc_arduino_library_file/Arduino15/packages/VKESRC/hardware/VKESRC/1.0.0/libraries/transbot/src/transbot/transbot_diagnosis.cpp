@@ -18,16 +18,16 @@
 
 #include "../../include/transbot/transbot_diagnosis.h"
 
-Turtlebot3Diagnosis::Turtlebot3Diagnosis()
+TransbotDiagnosis::TransbotDiagnosis()
 {
 }
 
-Turtlebot3Diagnosis::~Turtlebot3Diagnosis()
+TransbotDiagnosis::~TransbotDiagnosis()
 {
   DEBUG_SERIAL.end();  
 }
 
-bool Turtlebot3Diagnosis::init(void)
+bool TransbotDiagnosis::init(void)
 {
   DEBUG_SERIAL.begin(57600);
 
@@ -35,7 +35,7 @@ bool Turtlebot3Diagnosis::init(void)
   return true;
 }
 
-void Turtlebot3Diagnosis::showLedStatus(bool isConnected)
+void TransbotDiagnosis::showLedStatus(bool isConnected)
 {
   static uint32_t t_time = millis();
 
@@ -66,7 +66,7 @@ void Turtlebot3Diagnosis::showLedStatus(bool isConnected)
   updateRxTxLed();
 }
 
-void Turtlebot3Diagnosis::updateRxTxLed(void)
+void TransbotDiagnosis::updateRxTxLed(void)
 {
   static uint32_t rx_led_update_time;
   static uint32_t tx_led_update_time;
@@ -106,17 +106,17 @@ void Turtlebot3Diagnosis::updateRxTxLed(void)
   }
 }
 
-void Turtlebot3Diagnosis::setPowerOn(void)
+void TransbotDiagnosis::setPowerOn(void)
 {
   digitalWrite(BDPIN_DXL_PWR_EN, HIGH);
 }
 
-void Turtlebot3Diagnosis::setPowerOff(void)
+void TransbotDiagnosis::setPowerOff(void)
 {
   digitalWrite(BDPIN_DXL_PWR_EN, LOW);
 }
 
-uint8_t Turtlebot3Diagnosis::updateVoltageCheck(bool check_setup)
+uint8_t TransbotDiagnosis::updateVoltageCheck(bool check_setup)
 {  
   static uint8_t battery_voltage     = 0;
   static float   battery_valtage_raw = 0;
@@ -293,7 +293,7 @@ uint8_t Turtlebot3Diagnosis::updateVoltageCheck(bool check_setup)
   return battery_state;
 }
 
-uint8_t Turtlebot3Diagnosis::getButtonPress(uint16_t time_to_press)
+uint8_t TransbotDiagnosis::getButtonPress(uint16_t time_to_press)
 {
   uint8_t button_state = 0;
   static uint32_t t_time[2];

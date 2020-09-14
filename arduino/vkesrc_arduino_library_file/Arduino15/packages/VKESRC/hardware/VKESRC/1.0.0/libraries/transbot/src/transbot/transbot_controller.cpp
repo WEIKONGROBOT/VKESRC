@@ -18,17 +18,17 @@
 
 #include "../../include/transbot/transbot_controller.h"
 
-Turtlebot3Controller::Turtlebot3Controller()
+TransbotController::TransbotController()
 {
   const_cmd_vel_ = CONST_VEL;
 }
 
-Turtlebot3Controller::~Turtlebot3Controller()
+TransbotController::~TransbotController()
 {
   DEBUG_SERIAL.end();
 }
 
-bool Turtlebot3Controller::init(float max_lin_vel, float max_ang_vel, uint8_t scale_lin_vel, uint8_t scale_ang_vel)
+bool TransbotController::init(float max_lin_vel, float max_ang_vel, uint8_t scale_lin_vel, uint8_t scale_ang_vel)
 {
   DEBUG_SERIAL.begin(57600);
   // 57600bps baudrate for RC100 control
@@ -45,7 +45,7 @@ bool Turtlebot3Controller::init(float max_lin_vel, float max_ang_vel, uint8_t sc
   return true;
 }
 
-bool Turtlebot3Controller::getRCdata(float *get_cmd_vel)
+bool TransbotController::getRCdata(float *get_cmd_vel)
 {
   uint16_t received_data = 0;
   bool clicked_state = false;

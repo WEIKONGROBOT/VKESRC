@@ -18,7 +18,7 @@
 
 #include "../../include/transbot/transbot_motor_driver.h"
 
-Turtlebot3MotorDriver::Turtlebot3MotorDriver()
+TransbotMotorDriver::TransbotMotorDriver()
 : baudrate_(BAUDRATE),
   protocol_version_(PROTOCOL_VERSION),
   left_wheel_id_(DXL_LEFT_ID),
@@ -28,12 +28,12 @@ Turtlebot3MotorDriver::Turtlebot3MotorDriver()
   dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
 }
 
-Turtlebot3MotorDriver::~Turtlebot3MotorDriver()
+TransbotMotorDriver::~TransbotMotorDriver()
 {
   close();
 }
 
-bool Turtlebot3MotorDriver::init(String turtlebot3)
+bool TransbotMotorDriver::init(String transbot)
 {
   DEBUG_SERIAL.begin(57600);
   portHandler_   = dynamixel::PortHandler::getPortHandler(DEVICENAME);
@@ -59,9 +59,9 @@ bool Turtlebot3MotorDriver::init(String turtlebot3)
   groupSyncWriteVelocity_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_VELOCITY, LEN_X_GOAL_VELOCITY);
   groupSyncReadEncoder_   = new dynamixel::GroupSyncRead(portHandler_, packetHandler_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
   
-  if (turtlebot3 == "Burger")
+  if (transbot == "Normal")
     dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
-  else if (turtlebot3 == "Waffle or Waffle Pi")
+  else if (transbot == "Mecanum or omni")
     dynamixel_limit_max_velocity_ = WAFFLE_DXL_LIMIT_MAX_VELOCITY;
   else
     dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
@@ -70,7 +70,7 @@ bool Turtlebot3MotorDriver::init(String turtlebot3)
   return true;
 }
 
-bool Turtlebot3MotorDriver::setTorque(bool onoff)
+bool TransbotMotorDriver::setTorque(bool onoff)
 {
   uint8_t dxl_error = 0;
   int dxl_comm_result = COMM_TX_FAIL;
@@ -104,12 +104,12 @@ bool Turtlebot3MotorDriver::setTorque(bool onoff)
   return true;
 }
 
-bool Turtlebot3MotorDriver::getTorque()
+bool TransbotMotorDriver::getTorque()
 {
   return torque_;
 }
 
-void Turtlebot3MotorDriver::close(void)
+void TransbotMotorDriver::close(void)
 {
   // Disable Dynamixel Torque
   setTorque(false);
@@ -119,7 +119,7 @@ void Turtlebot3MotorDriver::close(void)
   DEBUG_SERIAL.end();
 }
 
-bool Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_value)
+bool TransbotMotorDriver::readEncoder(int32_t &left_value, int32_t &right_value)
 {
   int dxl_comm_result = COMM_TX_FAIL;              // Communication result
   bool dxl_addparam_result = false;                // addParam result
@@ -173,7 +173,7 @@ bool Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_valu
       value:??????
 ??:??????
 */
-int Turtlebot3MotorDriver::getAbsEncoder(int id,int32_t value)
+int TransbotMotorDriver::getAbsEncoder(int id,int32_t value)
 {
   long absEncTotal;   // ?????????
   int* encoder_buff;    //??????????
@@ -218,7 +218,7 @@ int Turtlebot3MotorDriver::getAbsEncoder(int id,int32_t value)
 }
 //end
 
-bool Turtlebot3MotorDriver::writeVelocity(int64_t left_value, int64_t right_value)
+bool TransbotMotorDriver::writeVelocity(int64_t left_value, int64_t right_value)
 {
   bool dxl_addparam_result;
   int8_t dxl_comm_result;
@@ -274,7 +274,7 @@ bool Turtlebot3MotorDriver::writeVelocity(int64_t left_value, int64_t right_valu
   return true;
 }
 
-bool Turtlebot3MotorDriver::controlMotor(const float wheel_radius, const float wheel_separation, float* value)
+bool TransbotMotorDriver::controlMotor(const float wheel_radius, const float wheel_separation, float* value)
 {
   bool dxl_comm_result = false;
   

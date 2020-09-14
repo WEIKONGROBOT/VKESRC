@@ -30,11 +30,11 @@
 
 #define DEBUG_SERIAL SerialBT2
 
-class Turtlebot3Controller
+class TransbotController
 {
  public:
-  Turtlebot3Controller();
-  ~Turtlebot3Controller();
+  TransbotController();
+  ~TransbotController();
 
   bool init(float max_lin_vel, float max_ang_vel, uint8_t scale_lin_vel = 1, uint8_t scale_ang_vel = 1);
 

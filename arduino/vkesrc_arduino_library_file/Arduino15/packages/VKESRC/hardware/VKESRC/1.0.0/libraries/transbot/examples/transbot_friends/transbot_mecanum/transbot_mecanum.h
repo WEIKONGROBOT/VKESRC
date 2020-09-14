@@ -18,14 +18,13 @@
 
 #include <math.h>
 
-#include <VKPS2.h>
+#include <RC100.h>
 
 #include "transbot_mecanum_motor_driver.h"
 
-//#define DEBUG
+#define DEBUG
 
-//change by jiapengfeng for test 20200824
-/*#define WHEEL_RADIUS                    0.03      // meter
+#define WHEEL_RADIUS                    0.03      // meter
 #define WHEEL_SEPARATION_X              0.1005    // 170mm/2 + 31mm/2
 #define WHEEL_SEPARATION_Y              0.085     // 200mm/2 - 30mm/2
 #define DISTANCE_CENTER_TO_WHEEL        0.165     // meter
@@ -34,18 +33,6 @@
 #define ENCODER_MAX                     2147483648      // raw
 
 #define RPM_CONSTANT_VALUE              0.229
-*/
-#define WHEEL_RADIUS                    0.032      // meter
-#define WHEEL_SEPARATION_X              0.04575    // 170mm/2 + 31mm/2
-#define WHEEL_SEPARATION_Y              0.12125     // 200mm/2 - 30mm/2
-#define DISTANCE_CENTER_TO_WHEEL        0.165     // meter
-
-#define ENCODER_MIN                     -2147483648     // raw
-#define ENCODER_MAX                     2147483648      // raw
-
-#define RPM_CONSTANT_VALUE              0.732
-
-//change by jiapengfeng for test 20200824
 
 #define CONTROL_PERIOD                  8000
 
@@ -59,17 +46,14 @@
 #define SCALE_VELOCITY_ANGULAR_Z        1
 
 #define MECANUMWHEEL_NUM                4
-//change by jiapengfeng for test 20200824
-#define LIMIT_X_MAX_VALUE               127
-//change by jiapengfeng for test 20200824
+#define LIMIT_X_MAX_VALUE               480
+
 #define DEG2RAD(x)                      (x * 0.01745329252)  // *PI/180
 #define RAD2DEG(x)                      (x * 57.2957795131)  // *180/PI
-
-//change by jiapengfeng for test 20200824
-#define DXL_LOBYTE(w)       ((uint8_t)(((uint16_t)(w)) & 0xff))
-#define DXL_HIBYTE(w)       ((uint8_t)((((uint16_t)(w)) >> 8) & 0xff))
-//change by jiapengfeng for test 20200824
 
 void receiveRemoteControlData(void);
 void controlMotorSpeed(void);
 void controlMecanum();
+
+// Ref : H.Taheri, B.Qiao, N.Ghaeminezhad, "Kinematic Model of a Four Mecanum Wheeled Mobile Robot",
+//       International Journal of Computer Applications, 3 March 2015

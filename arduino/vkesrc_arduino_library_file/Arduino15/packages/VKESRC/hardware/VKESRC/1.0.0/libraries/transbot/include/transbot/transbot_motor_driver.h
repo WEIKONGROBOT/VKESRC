@@ -73,12 +73,12 @@
 #define VELOCITY_CONSTANT_VALUE         13.0404
 #define DEBUG_SERIAL  SerialBT2
 
-class Turtlebot3MotorDriver
+class TransbotMotorDriver
 {
  public:
-  Turtlebot3MotorDriver();
-  ~Turtlebot3MotorDriver();
-  bool init(String turtlebot3);
+  TransbotMotorDriver();
+  ~TransbotMotorDriver();
+  bool init(String transbot);
   void close(void);
   bool setTorque(bool onoff);
   bool getTorque();

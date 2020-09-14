@@ -34,9 +34,9 @@
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 
-#include <turtlebot3_msgs/SensorState.h>
-#include <turtlebot3_msgs/Sound.h>
-#include <turtlebot3_msgs/VersionInfo.h>
+#include <transbot_msgs/SensorState.h>
+#include <transbot_msgs/Sound.h>
+#include <transbot_msgs/VersionInfo.h>
 
 #include <transbot.h>
 #include "transbot.h"
@@ -74,7 +74,7 @@
 
 // Callback function prototypes
 void commandVelocityCallback(const geometry_msgs::Twist& cmd_vel_msg);
-void soundCallback(const turtlebot3_msgs::Sound& sound_msg);
+void soundCallback(const transbot_msgs::Sound& sound_msg);
 void motorPowerCallback(const std_msgs::Bool& power_msg);
 void resetCallback(const std_msgs::Empty& reset_msg);
 
@@ -134,7 +134,7 @@ char joint_state_header_frame_id[30];
 *******************************************************************************/
 ros::Subscriber<geometry_msgs::Twist> cmd_vel_sub("cmd_vel", commandVelocityCallback);
 
-ros::Subscriber<turtlebot3_msgs::Sound> sound_sub("sound", soundCallback);
+ros::Subscriber<transbot_msgs::Sound> sound_sub("sound", soundCallback);
 
 ros::Subscriber<std_msgs::Bool> motor_power_sub("motor_power", motorPowerCallback);
 
@@ -143,31 +143,31 @@ ros::Subscriber<std_msgs::Empty> reset_sub("reset", resetCallback);
 /*******************************************************************************
 * Publisher
 *******************************************************************************/
-// Bumpers, cliffs, buttons, encoders, battery of Turtlebot3
-turtlebot3_msgs::SensorState sensor_state_msg;
+// Bumpers, cliffs, buttons, encoders, battery of Transbot
+transbot_msgs::SensorState sensor_state_msg;
 ros::Publisher sensor_state_pub("sensor_state", &sensor_state_msg);
 
-// Version information of Turtlebot3
-turtlebot3_msgs::VersionInfo version_info_msg;
+// Version information of Transbot
+transbot_msgs::VersionInfo version_info_msg;
 ros::Publisher version_info_pub("firmware_version", &version_info_msg);
 
-// IMU of Turtlebot3
+// IMU of Transbot
 sensor_msgs::Imu imu_msg;
 ros::Publisher imu_pub("imu", &imu_msg);
 
-// Command velocity of Turtlebot3 using RC100 remote controller
+// Command velocity of Transbot using RC100 remote controller
 geometry_msgs::Twist cmd_vel_rc100_msg;
 ros::Publisher cmd_vel_rc100_pub("cmd_vel_rc100", &cmd_vel_rc100_msg);
 
-// Odometry of Turtlebot3
+// Odometry of Transbot
 nav_msgs::Odometry odom;
 ros::Publisher odom_pub("odom", &odom);
 
-// Joint(Dynamixel) state of Turtlebot3
+// Joint(Dynamixel) state of Transbot
 sensor_msgs::JointState joint_states;
 ros::Publisher joint_states_pub("joint_states", &joint_states);
 
-// Battey state of Turtlebot3
+// Battey state of Transbot
 sensor_msgs::BatteryState battery_state_msg;
 ros::Publisher battery_state_pub("battery_state", &battery_state_msg);
 
@@ -178,19 +178,19 @@ ros::Publisher mag_pub("magnetic_field", &mag_msg);
 /*******************************************************************************
 * Transform Broadcaster
 *******************************************************************************/
-// TF of Turtlebot3
+// TF of Transbot
 geometry_msgs::TransformStamped odom_tf;
 tf::TransformBroadcaster tf_broadcaster;
 
 /*******************************************************************************
-* SoftwareTimer of Turtlebot3
+* SoftwareTimer of Transbot
 *******************************************************************************/
 static uint32_t tTime[10];
 
 /*******************************************************************************
 * Declaration for motor
 *******************************************************************************/
-Turtlebot3MotorDriver motor_driver;
+TransbotMotorDriver motor_driver;
 
 /*******************************************************************************
 * Calculation for odometry
@@ -207,12 +207,12 @@ double  last_velocity[WHEEL_NUM]  = {0.0, 0.0};
 /*******************************************************************************
 * Declaration for sensors
 *******************************************************************************/
-Turtlebot3Sensor sensors;
+TransbotSensor sensors;
 
 /*******************************************************************************
 * Declaration for controllers
 *******************************************************************************/
-Turtlebot3Controller controllers;
+TransbotController controllers;
 float zero_velocity[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_button[WHEEL_NUM] = {0.0, 0.0};
@@ -222,7 +222,7 @@ float goal_velocity_from_rc100[WHEEL_NUM] = {0.0, 0.0};
 /*******************************************************************************
 * Declaration for diagnosis
 *******************************************************************************/
-Turtlebot3Diagnosis diagnosis;
+TransbotDiagnosis diagnosis;
 
 /*******************************************************************************
 * Declaration for SLAM and navigation

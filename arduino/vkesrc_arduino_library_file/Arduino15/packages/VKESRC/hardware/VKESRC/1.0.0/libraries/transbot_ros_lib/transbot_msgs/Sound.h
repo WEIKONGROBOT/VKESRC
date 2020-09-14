@@ -1,12 +1,12 @@
-#ifndef _ROS_turtlebot3_msgs_Sound_h
-#define _ROS_turtlebot3_msgs_Sound_h
+#ifndef _ROS_transbot_msgs_Sound_h
+#define _ROS_transbot_msgs_Sound_h
 
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include "ros/msg.h"
 
-namespace turtlebot3_msgs
+namespace transbot_msgs
 {
 
   class Sound : public ros::Msg

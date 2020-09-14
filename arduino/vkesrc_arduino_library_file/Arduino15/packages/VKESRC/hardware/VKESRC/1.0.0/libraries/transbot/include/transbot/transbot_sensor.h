@@ -50,11 +50,11 @@ typedef struct SONAR_PIN
   int echo;
 }SonarPin;
 
-class Turtlebot3Sensor
+class TransbotSensor
 {
  public:
-  Turtlebot3Sensor();
-  ~Turtlebot3Sensor();
+  TransbotSensor();
+  ~TransbotSensor();
 
   bool init(void);
 
