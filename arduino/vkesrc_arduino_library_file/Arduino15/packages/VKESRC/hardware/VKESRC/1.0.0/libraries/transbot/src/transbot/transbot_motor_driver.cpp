@@ -119,20 +119,24 @@ void Turtlebot3MotorDriver::close(void)
   DEBUG_SERIAL.end();
 }
 
-int Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_value)
+bool Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_value)
 {
   int dxl_comm_result = COMM_TX_FAIL;              // Communication result
   bool dxl_addparam_result = false;                // addParam result
   bool dxl_getdata_result = false;                 // GetParam result
 
+  //hepei modify 20200909
+  groupSyncReadEncoder_->clearParam();
+  //end
+
   // Set parameter
   dxl_addparam_result = groupSyncReadEncoder_->addParam(left_wheel_id_);
   if (dxl_addparam_result != true)
-    return 1;
+    return false;
 
   dxl_addparam_result = groupSyncReadEncoder_->addParam(right_wheel_id_);
   if (dxl_addparam_result != true)
-    return 2;
+    return false;
 
   // Syncread present position
   dxl_comm_result = groupSyncReadEncoder_->txRxPacket();
@@ -142,11 +146,11 @@ int Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_value
   // Check if groupSyncRead data of Dynamixels are available
   dxl_getdata_result = groupSyncReadEncoder_->isAvailable(left_wheel_id_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
   if (dxl_getdata_result != true)
-    return 3;
+    return false;
 
   dxl_getdata_result = groupSyncReadEncoder_->isAvailable(right_wheel_id_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
   if (dxl_getdata_result != true)
-    return 4;
+    return false;
 
   // Get data
   left_value  = groupSyncReadEncoder_->getData(left_wheel_id_,  ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
@@ -159,7 +163,7 @@ int Turtlebot3MotorDriver::readEncoder(int32_t &left_value, int32_t &right_value
   //end
   
   groupSyncReadEncoder_->clearParam();
-  return 5;
+  return true;
 }
 
 //hepei add 2020/05/15
@@ -194,7 +198,7 @@ int Turtlebot3MotorDriver::getAbsEncoder(int id,int32_t value)
 	abs_encoder_q_count_[id] = 0; 
   }
   
-  if(abs(encoder_buff[0] - encoder_buff[1]) > 30) //????????,?????????,?????????
+  if(abs(encoder_buff[0] - encoder_buff[1]) > 10) //????????,?????????,?????????
   {
 	if(is_clockwise_[id] &&(encoder_buff[0] < encoder_buff[1])) //?????1?
 	{
@@ -293,3 +297,4 @@ bool Turtlebot3MotorDriver::controlMotor(const float wheel_radius, const float w
 
   return true;
 }
+

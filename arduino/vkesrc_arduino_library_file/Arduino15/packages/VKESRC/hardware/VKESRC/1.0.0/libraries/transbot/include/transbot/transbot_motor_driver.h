@@ -82,13 +82,12 @@ class Turtlebot3MotorDriver
   void close(void);
   bool setTorque(bool onoff);
   bool getTorque();
-  int readEncoder(int32_t &left_value, int32_t &right_value);
+  bool readEncoder(int32_t &left_value, int32_t &right_value);
   //hepei add 2020/05/15
   int getAbsEncoder(int id,int32_t value); //2?那yid㏒o0(℅車??)㏒?1(車辰??)㏒????邦?米2??∫3?
   //end
   bool writeVelocity(int64_t left_value, int64_t right_value);
   bool controlMotor(const float wheel_radius, const float wheel_separation, float* value);
-
  private:
   uint32_t baudrate_;
   float  protocol_version_;
@@ -111,6 +110,8 @@ class Turtlebot3MotorDriver
   int right_encoder_buff_[2] = {0};//車辰??㊣角???¯那y?Y?o∩?
   bool is_clockwise_[2] = {true};//℅車車辰??℅a?‘﹞??辰㊣那???? true㏒o?y℅a  false㏒o﹞∩℅a
   //end
+
+  
 };
 
 #endif // TRANSBOT_MOTOR_DRIVER_H_
