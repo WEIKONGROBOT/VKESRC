@@ -22,9 +22,9 @@
 #define NAME                             "Normal"
 
 #define WHEEL_RADIUS                     0.033           // meter
-#define WHEEL_SEPARATION                 0.221           // meter (TRANSBOT : 0.221)   
-#define TURNING_RADIUS                   0.1105           // meter (TRANSBOT : 0.1105)
-#define ROBOT_RADIUS                     0.221          // meter (TRANSBOT : 0.221)
+#define WHEEL_SEPARATION                 0.231           // meter (TRANSBOT : 0.231)   
+#define TURNING_RADIUS                   0.1155           // meter (TRANSBOT : 0.1105)
+#define ROBOT_RADIUS                     0.231          // meter (TRANSBOT : 0.221)
 #define ENCODER_MIN                      -2147483648     // raw
 #define ENCODER_MAX                      2147483648      // raw
 
