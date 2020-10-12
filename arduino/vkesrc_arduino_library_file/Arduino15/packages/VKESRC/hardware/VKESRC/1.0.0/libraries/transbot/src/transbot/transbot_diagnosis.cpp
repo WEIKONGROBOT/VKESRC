@@ -244,7 +244,7 @@ uint8_t TransbotDiagnosis::updateVoltageCheck(bool check_setup)
         {
           if(battery_valtage_raw < voltage_ref_warn)
           {
-            setPowerOff();
+            //setPowerOff();
             prev_state    = battery_state;
             battery_state = BATTERY_POWER_WARNNING;
           }
@@ -272,12 +272,12 @@ uint8_t TransbotDiagnosis::updateVoltageCheck(bool check_setup)
         }
         else
         {
-          setPowerOff();
+          //setPowerOff();
         }
 
         if(battery_valtage_raw < 5.0)
         {
-          setPowerOff();
+          //setPowerOff();
           prev_state    = battery_state;
           battery_state = BATTERY_POWER_OFF;
         }
